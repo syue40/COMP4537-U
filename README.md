@@ -1,2 +1,1 @@
-# COMP4537
-Labs for COMP4537
+# This Repository Contains COMP4537: Internet Software Architecture Labs
