@@ -1,3 +1,85 @@
+/* 
+    Week 2 Lab: Mongodb Queries
+    Author: Sean Y
+    Student #: A01228440
+    Date: Sept. 19/22
+    Set: U
+*/
+
 use ("test")
 
-db.unicorns.find()
+/* Query 1: limit 2 results, format queried data, skip first item */
+// db.unicorns.find().limit(2).pretty().skip(1)
+
+/* Query 2: querying specific unicorns */
+// db.unicorns.find(
+//     {
+//         // find with the following parameters
+//         // "name": "Horny",
+//         "gender": "m"
+//     }, {
+//         // display the following fields
+//         name: 1,
+//         gender: 1,
+//         _id: 0,
+//         // loves: 1
+//     }
+// )
+
+/* Query 3: return unicorns that love apples or carrots */
+// db.unicorns.find({
+//     // $or: [
+//         // {
+//             loves: {$in :["apple", "carrot"]}
+//         // }, 
+//         // {
+//         //     loves: {$in: ["carrot"]}
+//         // }, 
+//         // {
+//         //     loves: {$in: ["grape"]}
+//         // }
+//     // ]
+// })
+
+/* Query 3.5: return unicorns that are female and are less than 500lbs or love apples */
+// db.unicorns.find({
+//     $and: [
+//         {
+//             gender: 'f'
+//         },
+//     ],
+//     $or: [
+//         {
+//             loves: {$in :["apple"]}
+//         }, 
+//         {
+//             weight: {$lt: 500}
+//         },
+//     ]
+// })
+
+/* Query 4: updating Rooodle's weight to 590*/
+// db.unicorns.update(
+//     {
+//         name: "Roooooodles"
+//     },
+//     {
+//         $set: { weight: 590 }
+//     },
+//     // {
+//     //     upsert: true
+//     // },
+// )
+
+// db.unicorns.find(
+//    { "name" : "Roooooodles" }
+// )
+
+// db.unicorns.find({_id: ObjectId("6328a228c92da57e4c1b3cc7")})
+
+/* Query 5: sorting results ascending and descending (1, -1)*/
+// db.unicorns.find().sort(
+//     {weight: -1}
+// )
+
+db.unicorns.find({dob: ISODate("1979-08-19T01:44:00.000Z")})
