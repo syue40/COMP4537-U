@@ -9,20 +9,9 @@ const express = require('express')
 const app = express()
 const port = 5000
 
-app.listen(port, async () => {
-    try {
-      unicornsJSON = await readFileAsync('./data.json', 'utf-8')
-      if (!unicornsJSON) {
-        console.log("Could not read the file");
-        return
-      }
-      unicornsJSON = JSON.parse(unicornsJSON)
-      console.log(unicornsJSON);
-    } catch (error) {
-      console.log(error);
-    }
-  
-    console.log(`Example app listening on port ${port}`)
+app.listen(process.env.PORT || 5000, function (err) {
+  if (err)
+      console.log(err);
 })
 
 app.get('/api/v1/unicorns', (req, res) => {
