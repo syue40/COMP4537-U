@@ -1,4 +1,4 @@
-// var { unicornsJSON } = require('./data.js')
+var { unicornsJSON } = require('./data.js')
 const { writeFile, readFile } = require('fs')
 const util = require('util')
 const writeFileAsync = util.promisify(writeFile)
