@@ -3,7 +3,6 @@ const { writeFile, readFile } = require('fs')
 const util = require('util')
 const writeFileAsync = util.promisify(writeFile)
 const readFileAsync = util.promisify(readFile)
-var unicornsJSON = []
 const express = require('express')
 
 const app = express()
