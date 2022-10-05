@@ -12,8 +12,8 @@ function lengthChecker(res, docs){
     if(docs.length > 0){
         res.json(docs)
     } else {
-        console.log("No Pokemons found")
-        res.json({ msg: "No Pokemons found" })
+        console.log("Pokemon not found")
+        res.json({ errMsg: "Pokemon not found" })
     }
 }
 
@@ -55,6 +55,8 @@ app.listen(port, async () => {
     
 })
 
+
+
 app.get('/api/v1/pokemons', function(req, res) {
     var after = null
     var count = null
@@ -88,9 +90,9 @@ app.get('/api/v1/pokemon/:id', (req, res) => {
             lengthChecker(res, doc)
         }).catch(err => {
             console.error(err)
-            res.json({ msg: "Error returning singular pokemon" })
+            res.json({ errMsg: "Error returning singular pokemon" })
         })
-    } else { res.json({ msg: "Invalid Entry" }) }
+    } else { res.json({ errMsg: "Cast Error: pass pokemon id between 1 and 811" }) }
     
 })
 
@@ -108,13 +110,13 @@ app.get('/api/v1/pokemonImage/:id', (req, res) => {
                 res.json({url: `https://github.com/fanzeyi/pokemon.json/blob/master/thumbnails/${pokeId}.png`, name: doc[0].name.english})
             } else {
                 console.log("No Pokemons found")
-                res.json({ msg: "No Pokemons found" })
+                res.json({ errMsg : "Pokemon not found" })
             }
         }).catch(err => {
             console.error(err)
-            res.json({ msg: "Error returning singular pokemon" })
+            res.json({ errMsg: "Error returning singular pokemon" })
         })
-    } else { res.json({ msg: "Invalid Entry" }) }
+    } else { res.json({ errMsg: "Invalid Entry" }) }
 }) 
 
 app.use(express.json())
@@ -123,9 +125,9 @@ app.post('/api/v1/pokemon', (req, res) => {
     pokemonModel.create(req.body, function (err) {
         if (err) {
             // console.log(err)
-            res.json({msg: "Duplicate key or invalid format, please try again."})
+            res.json({errMsg: "Duplicate key or invalid format, please try again."})
         } else {
-            res.json({msg: "Successfully Saved!", body: req.body})
+            res.json({msg: "Added Successfully", body: req.body})
         }
     });
 })  
@@ -136,22 +138,55 @@ app.delete('/api/v1/pokemon/:id', (req, res) => {
     if(!containsAnyLetters(pokeId)){
         pokemonModel.deleteOne({ id: parseInt(pokeId) }, function (err, result) {
             if (err) {
-                res.json({msg: "Pokemon not found. Delete failed."})
+                res.json({errMsg: "Pokemon not found"})
             } else {
                 if(result.deletedCount == 0){
-                    res.json({msg: "Pokemon not found, please check its id!"})
+                    res.json({errMsg: "Pokemon not found"})
                 } else {
-                    res.json({msg: "Deleted successfully!"})
+                    res.json({msg: "Deleted Successfully", pokeInfo:{ id:pokeId }})
                 }
             }
         });
     } else { 
-        res.json({ msg: "Invalid Entry" }) 
+        res.json({ errMsg: "Invalid Entry" }) 
     }
 })
 
-// app.put('/api/v1/pokemon/:id')   
-// app.patch('/api/v1/pokemon/:id')
+app.patch('/api/v1/pokemon/:id', (req, res) => {
+    // - update a pokemon
+    var pokeId = req.params.id
+    const { id, ...rest } = req.body;
+    if(!containsAnyLetters(pokeId)){
+        pokemonModel.updateOne({ id: parseInt(pokeId) }, {$set: { ...rest}}, { runValidators: true }, function (err, res) {
+        if (err) console.log(err)
+        console.log(res)
+        });
+        res.json({ msg:"Updated Successfully", pokeInfo:{id: pokeId, ...rest}})
+    } else {
+        res.json({ errMsg: "Invalid Entry" }) 
+    }
+})
+
+app.put('/api/v1/pokemon/:id', (req, res) => {
+    var pokeId = req.params.id
+    const { id, ...rest } = req.body;
+    if(!containsAnyLetters(pokeId)){
+        pokemonModel.findOneAndUpdate({ id: parseInt(pokeId) }, {$set: { ...rest}, }, { runValidators: true, upsert: true, new:true }, function (err) {
+        if (err) {
+            res.json({ errMsg: "Invalid Entry" })
+        } else {
+            console.log(res)
+            res.json({ msg:"Updated/Created Successfully", pokeInfo:{id: pokeId, ...rest}})
+        }
+        });
+    } else {
+        res.json({ errMsg: "Invalid Entry" }) 
+    }
+}) 
+
+app.get('*', function (req, res) {
+    res.json({msg: "Improper route. Check API docs plz."});
+})
 
 var possibleTypes = []
 const { Schema } = mongoose;
