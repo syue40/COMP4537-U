@@ -3,13 +3,17 @@ const mongoose = require('mongoose')
 const https = require('https')
 const app = express()
 const port = 5000
+
 //'mongodb+srv://user1:1122@mydatabase.cq9hxg1.mongodb.net/myDatabase?retryWrites=true&w=majority'
 //process.env.PORT
+
 function containsAnyLetters(str) {
+    // Check if params have any invalid inputs
     return /[a-zA-Z]/.test(str) ;
 }
 
 function lengthChecker(res, docs){
+    // Check if document returned is empty for when user enters non-existent pokemon ID
     if(docs.length > 0){
         res.json(docs)
     } else {
@@ -19,6 +23,7 @@ function lengthChecker(res, docs){
 }
 
 app.listen(process.env.PORT, async () => {
+    // Start instance and read data
     try {
         await mongoose.connect('mongodb+srv://testuser:1122@test.kh8lwvb.mongodb.net/?retryWrites=true&w=majority')
         mongoose.connection.db.dropDatabase();
@@ -57,6 +62,8 @@ app.listen(process.env.PORT, async () => {
 })
 
 app.get('/api/v1/pokemons', function(req, res) {
+    // gets all Pokemons, has query params for limiting # of Pokemon and for which ID to start from.
+    // can work with either after, count, or both
     var after = null
     var count = null
     console.log(req.query);
@@ -83,6 +90,7 @@ app.get('/api/v1/pokemons', function(req, res) {
   })
 
 app.get('/api/v1/pokemon/:id', (req, res) => {
+    // - gets a Pokemon by their ID
     if(!containsAnyLetters(req.params.id)){
         pokemonModel.find({id: parseInt(req.params.id)})
         .then(doc => {
@@ -96,6 +104,7 @@ app.get('/api/v1/pokemon/:id', (req, res) => {
 })
 
 app.get('/api/v1/pokemonImage/:id', (req, res) => {
+    // - gets a Pokemon's image URL by their ID
     var pokeId = req.params.id;
     if(!containsAnyLetters(pokeId)){
         pokemonModel.find({id: parseInt(pokeId)})
@@ -120,10 +129,10 @@ app.get('/api/v1/pokemonImage/:id', (req, res) => {
 
 app.use(express.json())
 app.post('/api/v1/pokemon', (req, res) => {
-    // - create a new unicorn
+    // - creates a new Pokemon
     pokemonModel.create(req.body, function (err) {
         if (err) {
-            // console.log(err)
+            /* For some reason this error will be thrown when trying to create a duplicate Pokemon locally, but is not thrown on mongo Atlas */
             res.json({errMsg: "Duplicate key or invalid format, please try again."})
         } else {
             res.json({msg: "Added Successfully", body: req.body})
