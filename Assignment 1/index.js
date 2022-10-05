@@ -13,32 +13,6 @@ app.listen(port, async () => {
     }
     console.log(`Example app listening on port ${port}`)
 
-    var possibleTypes = []
-    const { Schema } = mongoose;
-    const pokemonSchema = new Schema({
-        "id": String,
-        "name": {
-            "english": String,
-            "japanese": String,
-            "chinese": String,
-            "french": String
-        },
-        "type": {
-            type: [String],
-            enum: possibleTypes
-        },
-        "base": {
-            "HP": Number,
-            "Attack": Number,
-            "Defense": Number,
-            "Sp. Attack": Number,
-            "Sp. Defense": Number,
-            "Speed": Number
-        }
-    });
-
-    const pokemonModel = mongoose.model('pokemons', pokemonSchema);
-
     await https.get("https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/types.json", async (res) => {
         var chunks = "";
         res.on("data", function(chunk){
@@ -68,7 +42,39 @@ app.listen(port, async () => {
     
 })
 
-// const possibleTypes = ["Normal", "Fighting", "Flying", "Poison", 
-//                          "Ground", "Rock", "Bug", "Ghost", "Steel", 
-//                          "Fire", "Water", "Grass", "Electric", "Psychic", 
-//                          "Ice", "Dragon", "Dark", "Fairy"]
+app.get('/api/v1/pokemons', function(req, res) {
+    pokemonModel.find({id: {$gte: parseInt(req.query.after)} }).limit(parseInt(req.query.count))
+      .then(docs => {
+        // console.log(docs)
+        res.json(docs)
+      })
+      .catch(err => {
+        console.error(err)
+        res.json({ msg: "db reading .. err.  Check with server devs" })
+      })
+  })
+
+var possibleTypes = []
+const { Schema } = mongoose;
+const pokemonSchema = new Schema({
+    "id": Number,
+    "name": {
+        "english": String,
+        "japanese": String,
+        "chinese": String,
+        "french": String
+    },
+    "type": {
+        type: [String],
+        enum: possibleTypes
+    },
+    "base": {
+        "HP": Number,
+        "Attack": Number,
+        "Defense": Number,
+        "Sp. Attack": Number,
+        "Sp. Defense": Number,
+        "Speed": Number
+    }
+});
+const pokemonModel = mongoose.model('pokemons', pokemonSchema);
