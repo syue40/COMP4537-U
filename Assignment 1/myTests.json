@@ -1,1 +1,329 @@
-{"client":"Thunder Client","collectionName":"Pokemons","folderName":"","environmentName":"URL","collectioId":"b52366eb-bbcc-4f59-9efc-fef80c6ae4e4","folderId":"","environmentId":"12252107-b5be-47b5-ab71-f3b48a31304d","dateExported":"2022-10-05T08:58:49.520Z","totalIterations":1,"totalPassed":1,"totalFailed":0,"failedIterations":[],"iterations":[{"iteration":1,"totalRequests":15,"totalPassed":15,"totalFailed":0,"requests":[{"reqId":"add4c624-62eb-47b1-baa1-bdb889fe1a0e","name":"pokemons","method":"GET","url":"http://localhost:5000/api/v1/pokemons/?count=2&after=10","resCode":200,"resTime":17,"resTimeText":"17 ms","resSize":523,"passed":3,"total":3,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: json[0].id equal to 11 ","result":"Pass"},{"name":"Query: json array count is 2 ","result":"Pass"}]},{"reqId":"2092825e-12ea-4148-885b-e86d3f1d72b3","name":"pokemon","method":"GET","url":"http://localhost:5000/api/v1/pokemon/77","resCode":200,"resTime":5,"resTimeText":"5 ms","resSize":249,"passed":2,"total":2,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: json[0].name.english equal to Ponyta ","result":"Pass"}]},{"reqId":"4694f23d-dd18-4120-bb51-23f30eaa16e0","name":"pokemon not found","method":"GET","url":"http://localhost:5000/api/v1/pokemon/893849","resCode":200,"resTime":4,"resTimeText":"4 ms","resSize":30,"passed":2,"total":2,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: errMsg equal to Pokemon not found ","result":"Pass"}]},{"reqId":"39e39bd3-3605-4783-bafc-c0ce8c438a87","name":"pokemon key cast error","method":"GET","url":"http://localhost:5000/api/v1/pokemon/gjkl34j@3_*+","resCode":200,"resTime":3,"resTimeText":"3 ms","resSize":58,"passed":2,"total":2,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: errMsg equal to Cast Error: pass pokemon id between 1 and 811 ","result":"Pass"}]},{"reqId":"eb5cbd4a-b2ec-4b4f-9d6c-2373ed7f6649","name":"pokemon","method":"POST","url":"http://localhost:5000/api/v1/pokemon","resCode":200,"resTime":15,"resTimeText":"15 ms","resSize":237,"passed":2,"total":2,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: json.msg equal to Added Successfully ","result":"Pass"}]},{"reqId":"e521a669-32b2-40c6-8359-f6391b936036","name":"pokemon validation error","method":"POST","url":"http://localhost:5000/api/v1/pokemon","resCode":200,"resTime":5,"resTimeText":"5 ms","resSize":63,"passed":2,"total":2,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: json.errMsg equal to Duplicate key or invalid format, please try again. ","result":"Pass"}]},{"reqId":"6c34a591-198c-49bc-ac76-cb002ad96c2e","name":"pokemon duplicate","method":"POST","url":"http://localhost:5000/api/v1/pokemon","resCode":200,"resTime":5,"resTimeText":"5 ms","resSize":63,"passed":2,"total":2,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: json.errMsg equal to Duplicate key or invalid format, please try again. ","result":"Pass"}]},{"reqId":"8c58a4fe-806f-4e64-a3af-c40a37e1a8f1","name":"pokemon","method":"DELETE","url":"http://localhost:5000/api/v1/pokemon/1000","resCode":200,"resTime":4,"resTimeText":"4 ms","resSize":55,"passed":3,"total":3,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: json.msg equal to Deleted Successfully ","result":"Pass"},{"name":"Query: json.pokeInfo.id equal to 1000 ","result":"Pass"}]},{"reqId":"19066426-efa0-4fe6-839c-8186fdf7b573","name":"pokemon not found","method":"DELETE","url":"http://localhost:5000/api/v1/pokemon/2000","resCode":200,"resTime":4,"resTimeText":"4 ms","resSize":30,"passed":2,"total":2,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: json.errMsg equal to Pokemon not found ","result":"Pass"}]},{"reqId":"136aae97-ee8d-475b-9e85-43550226ff8f","name":"pokemon ","method":"PUT","url":"http://localhost:5000/api/v1/pokemon/1000","resCode":200,"resTime":52,"resTimeText":"52 ms","resSize":253,"passed":5,"total":5,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: json.msg equal to Updated/Created Successfully ","result":"Pass"},{"name":"Query: json.pokeInfo.id equal to 1000 ","result":"Pass"},{"name":"Query: json.pokeInfo.base.HP equal to 60 ","result":"Pass"},{"name":"Query: json.pokeInfo.base.Attack equal to 20 ","result":"Pass"}]},{"reqId":"b146328f-9976-413c-b090-6d7e85b00b4f","name":"pokemon  validation","method":"PUT","url":"http://localhost:5000/api/v1/pokemon/1000","resCode":200,"resTime":16,"resTimeText":"16 ms","resSize":26,"passed":2,"total":2,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: json.errMsg equal to Invalid Entry ","result":"Pass"}]},{"reqId":"15767718-2db8-4803-9d3b-f9cb033f4bf4","name":"pokemon  notFound","method":"PUT","url":"http://localhost:5000/api/v1/pokemon/1000","resCode":200,"resTime":50,"resTimeText":"50 ms","resSize":253,"passed":2,"total":2,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: json.msg equal to Updated/Created Successfully ","result":"Pass"}]},{"reqId":"4c4b69be-db3c-4149-9651-7bc9926670c6","name":"pokemon  patch","method":"PATCH","url":"http://localhost:5000/api/v1/pokemon/1000","resCode":200,"resTime":3,"resTimeText":"3 ms","resSize":145,"passed":5,"total":5,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: json.msg equal to Updated Successfully ","result":"Pass"},{"name":"Query: json.pokeInfo.id equal to 1000 ","result":"Pass"},{"name":"Query: json.pokeInfo.base.HP equal to 60 ","result":"Pass"},{"name":"Query: json.pokeInfo.base.Attack equal to 20 ","result":"Pass"}]},{"reqId":"21e42a94-2280-4ec9-98da-552d69549619","name":"pokemon patch Dangerous","method":"PATCH","url":"http://localhost:5000/api/v1/pokemon/1000","resCode":200,"resTime":2,"resTimeText":"2 ms","resSize":145,"passed":1,"total":1,"tests":[{"name":"Response Body is JSON true ","result":"Pass"}]},{"reqId":"0af8f8b7-97d2-41d3-8eeb-8310dfc21db4","name":"Improper Route","method":"GET","url":"http://localhost:5000/api/v1/pokemooooons/?count=2&after=10","resCode":200,"resTime":2,"resTimeText":"2 ms","resSize":45,"passed":2,"total":2,"tests":[{"name":"Response Body is JSON true ","result":"Pass"},{"name":"Query: json.msg equal to Improper route. Check API docs plz. ","result":"Pass"}]}]}]}
+{
+  "client": "Thunder Client",
+  "collectionName": "Pokemons",
+  "folderName": "",
+  "environmentName": "URL",
+  "collectioId": "b52366eb-bbcc-4f59-9efc-fef80c6ae4e4",
+  "folderId": "",
+  "environmentId": "12252107-b5be-47b5-ab71-f3b48a31304d",
+  "dateExported": "2022-10-05T08:58:49.520Z",
+  "totalIterations": 1,
+  "totalPassed": 1,
+  "totalFailed": 0,
+  "failedIterations": [],
+  "iterations": [
+    {
+      "iteration": 1,
+      "totalRequests": 15,
+      "totalPassed": 15,
+      "totalFailed": 0,
+      "requests": [
+        {
+          "reqId": "add4c624-62eb-47b1-baa1-bdb889fe1a0e",
+          "name": "pokemons",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/pokemons/?count=2&after=10",
+          "resCode": 200,
+          "resTime": 17,
+          "resTimeText": "17 ms",
+          "resSize": 523,
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            { "name": "Query: json[0].id equal to 11 ", "result": "Pass" },
+            { "name": "Query: json array count is 2 ", "result": "Pass" }
+          ]
+        },
+        {
+          "reqId": "2092825e-12ea-4148-885b-e86d3f1d72b3",
+          "name": "pokemon",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/pokemon/77",
+          "resCode": 200,
+          "resTime": 5,
+          "resTimeText": "5 ms",
+          "resSize": 249,
+          "passed": 2,
+          "total": 2,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            {
+              "name": "Query: json[0].name.english equal to Ponyta ",
+              "result": "Pass"
+            }
+          ]
+        },
+        {
+          "reqId": "4694f23d-dd18-4120-bb51-23f30eaa16e0",
+          "name": "pokemon not found",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/pokemon/893849",
+          "resCode": 200,
+          "resTime": 4,
+          "resTimeText": "4 ms",
+          "resSize": 30,
+          "passed": 2,
+          "total": 2,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            {
+              "name": "Query: errMsg equal to Pokemon not found ",
+              "result": "Pass"
+            }
+          ]
+        },
+        {
+          "reqId": "39e39bd3-3605-4783-bafc-c0ce8c438a87",
+          "name": "pokemon key cast error",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/pokemon/gjkl34j@3_*+",
+          "resCode": 200,
+          "resTime": 3,
+          "resTimeText": "3 ms",
+          "resSize": 58,
+          "passed": 2,
+          "total": 2,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            {
+              "name": "Query: errMsg equal to Cast Error: pass pokemon id between 1 and 811 ",
+              "result": "Pass"
+            }
+          ]
+        },
+        {
+          "reqId": "eb5cbd4a-b2ec-4b4f-9d6c-2373ed7f6649",
+          "name": "pokemon",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/pokemon",
+          "resCode": 200,
+          "resTime": 15,
+          "resTimeText": "15 ms",
+          "resSize": 237,
+          "passed": 2,
+          "total": 2,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            {
+              "name": "Query: json.msg equal to Added Successfully ",
+              "result": "Pass"
+            }
+          ]
+        },
+        {
+          "reqId": "e521a669-32b2-40c6-8359-f6391b936036",
+          "name": "pokemon validation error",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/pokemon",
+          "resCode": 200,
+          "resTime": 5,
+          "resTimeText": "5 ms",
+          "resSize": 63,
+          "passed": 2,
+          "total": 2,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            {
+              "name": "Query: json.errMsg equal to Duplicate key or invalid format, please try again. ",
+              "result": "Pass"
+            }
+          ]
+        },
+        {
+          "reqId": "6c34a591-198c-49bc-ac76-cb002ad96c2e",
+          "name": "pokemon duplicate",
+          "method": "POST",
+          "url": "http://localhost:5000/api/v1/pokemon",
+          "resCode": 200,
+          "resTime": 5,
+          "resTimeText": "5 ms",
+          "resSize": 63,
+          "passed": 2,
+          "total": 2,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            {
+              "name": "Query: json.errMsg equal to Duplicate key or invalid format, please try again. ",
+              "result": "Pass"
+            }
+          ]
+        },
+        {
+          "reqId": "8c58a4fe-806f-4e64-a3af-c40a37e1a8f1",
+          "name": "pokemon",
+          "method": "DELETE",
+          "url": "http://localhost:5000/api/v1/pokemon/1000",
+          "resCode": 200,
+          "resTime": 4,
+          "resTimeText": "4 ms",
+          "resSize": 55,
+          "passed": 3,
+          "total": 3,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            {
+              "name": "Query: json.msg equal to Deleted Successfully ",
+              "result": "Pass"
+            },
+            {
+              "name": "Query: json.pokeInfo.id equal to 1000 ",
+              "result": "Pass"
+            }
+          ]
+        },
+        {
+          "reqId": "19066426-efa0-4fe6-839c-8186fdf7b573",
+          "name": "pokemon not found",
+          "method": "DELETE",
+          "url": "http://localhost:5000/api/v1/pokemon/2000",
+          "resCode": 200,
+          "resTime": 4,
+          "resTimeText": "4 ms",
+          "resSize": 30,
+          "passed": 2,
+          "total": 2,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            {
+              "name": "Query: json.errMsg equal to Pokemon not found ",
+              "result": "Pass"
+            }
+          ]
+        },
+        {
+          "reqId": "136aae97-ee8d-475b-9e85-43550226ff8f",
+          "name": "pokemon ",
+          "method": "PUT",
+          "url": "http://localhost:5000/api/v1/pokemon/1000",
+          "resCode": 200,
+          "resTime": 52,
+          "resTimeText": "52 ms",
+          "resSize": 253,
+          "passed": 5,
+          "total": 5,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            {
+              "name": "Query: json.msg equal to Updated/Created Successfully ",
+              "result": "Pass"
+            },
+            {
+              "name": "Query: json.pokeInfo.id equal to 1000 ",
+              "result": "Pass"
+            },
+            {
+              "name": "Query: json.pokeInfo.base.HP equal to 60 ",
+              "result": "Pass"
+            },
+            {
+              "name": "Query: json.pokeInfo.base.Attack equal to 20 ",
+              "result": "Pass"
+            }
+          ]
+        },
+        {
+          "reqId": "b146328f-9976-413c-b090-6d7e85b00b4f",
+          "name": "pokemon  validation",
+          "method": "PUT",
+          "url": "http://localhost:5000/api/v1/pokemon/1000",
+          "resCode": 200,
+          "resTime": 16,
+          "resTimeText": "16 ms",
+          "resSize": 26,
+          "passed": 2,
+          "total": 2,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            {
+              "name": "Query: json.errMsg equal to Invalid Entry ",
+              "result": "Pass"
+            }
+          ]
+        },
+        {
+          "reqId": "15767718-2db8-4803-9d3b-f9cb033f4bf4",
+          "name": "pokemon  notFound",
+          "method": "PUT",
+          "url": "http://localhost:5000/api/v1/pokemon/1000",
+          "resCode": 200,
+          "resTime": 50,
+          "resTimeText": "50 ms",
+          "resSize": 253,
+          "passed": 2,
+          "total": 2,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            {
+              "name": "Query: json.msg equal to Updated/Created Successfully ",
+              "result": "Pass"
+            }
+          ]
+        },
+        {
+          "reqId": "4c4b69be-db3c-4149-9651-7bc9926670c6",
+          "name": "pokemon  patch",
+          "method": "PATCH",
+          "url": "http://localhost:5000/api/v1/pokemon/1000",
+          "resCode": 200,
+          "resTime": 3,
+          "resTimeText": "3 ms",
+          "resSize": 145,
+          "passed": 5,
+          "total": 5,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            {
+              "name": "Query: json.msg equal to Updated Successfully ",
+              "result": "Pass"
+            },
+            {
+              "name": "Query: json.pokeInfo.id equal to 1000 ",
+              "result": "Pass"
+            },
+            {
+              "name": "Query: json.pokeInfo.base.HP equal to 60 ",
+              "result": "Pass"
+            },
+            {
+              "name": "Query: json.pokeInfo.base.Attack equal to 20 ",
+              "result": "Pass"
+            }
+          ]
+        },
+        {
+          "reqId": "21e42a94-2280-4ec9-98da-552d69549619",
+          "name": "pokemon patch Dangerous",
+          "method": "PATCH",
+          "url": "http://localhost:5000/api/v1/pokemon/1000",
+          "resCode": 200,
+          "resTime": 2,
+          "resTimeText": "2 ms",
+          "resSize": 145,
+          "passed": 1,
+          "total": 1,
+          "tests": [{ "name": "Response Body is JSON true ", "result": "Pass" }]
+        },
+        {
+          "reqId": "0af8f8b7-97d2-41d3-8eeb-8310dfc21db4",
+          "name": "Improper Route",
+          "method": "GET",
+          "url": "http://localhost:5000/api/v1/pokemooooons/?count=2&after=10",
+          "resCode": 200,
+          "resTime": 2,
+          "resTimeText": "2 ms",
+          "resSize": 45,
+          "passed": 2,
+          "total": 2,
+          "tests": [
+            { "name": "Response Body is JSON true ", "result": "Pass" },
+            {
+              "name": "Query: json.msg equal to Improper route. Check API docs plz. ",
+              "result": "Pass"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
