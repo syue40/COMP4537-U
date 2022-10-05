@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const https = require('https')
 const app = express()
 const port = 5000
-
+//'mongodb+srv://user1:1122@mydatabase.cq9hxg1.mongodb.net/myDatabase?retryWrites=true&w=majority'
+//process.env.PORT
 function containsAnyLetters(str) {
     return /[a-zA-Z]/.test(str) ;
 }
@@ -19,9 +20,9 @@ function lengthChecker(res, docs){
 
 app.listen(process.env.PORT, async () => {
     try {
-        await mongoose.connect('mongodb+srv://test_a1:1122@mydatabase.cq9hxg1.mongodb.net/myDatabase?retryWrites=true&w=majority')
+        await mongoose.connect('mongodb+srv://testuser:1122@test.kh8lwvb.mongodb.net/?retryWrites=true&w=majority')
         mongoose.connection.db.dropDatabase();
-    } catch(eror) {
+    } catch(err) {
         console.log('db error');
     }
     console.log(`Example app listening on port ${port}`)
