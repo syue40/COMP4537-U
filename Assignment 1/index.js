@@ -195,10 +195,10 @@ const pokemonSchema = new Schema({
         unique: true
     },
     "name": {
-        "english": String,
-        "japanese": String,
-        "chinese": String,
-        "french": String
+        "english": { type: String, max: 20 },
+        "japanese": { type: String, max: 20 },
+        "chinese": { type: String, max: 20 },
+        "french": { type: String, max: 20 }
     },
     "type": {
         type: [String],
