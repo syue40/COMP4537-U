@@ -1,9 +1,22 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const https = require('https')
-
 const app = express()
 const port = 5000
+
+function containsAnyLetters(str) {
+    return /[a-zA-Z]/.test(str);
+}
+
+function lengthChecker(res, docs){
+    if(docs.length > 0){
+        res.json(docs)
+    } else {
+        console.log("No Pokemons found")
+        res.json({ msg: "No Pokemons found" })
+    }
+}
+
 app.listen(port, async () => {
     try {
         await mongoose.connect('mongodb://localhost:27017/test')
@@ -33,7 +46,7 @@ app.listen(port, async () => {
             const arr = JSON.parse(chunks);
             // console.log(arr)
             pokemonModel.insertMany(arr).then(
-                console.log("Success!")
+                console.log("Successfully populated database!")
             ).catch(function(error){
                 console.log(error);
             });
@@ -43,21 +56,110 @@ app.listen(port, async () => {
 })
 
 app.get('/api/v1/pokemons', function(req, res) {
-    pokemonModel.find({id: {$gte: parseInt(req.query.after)} }).limit(parseInt(req.query.count))
-      .then(docs => {
-        // console.log(docs)
-        res.json(docs)
-      })
-      .catch(err => {
-        console.error(err)
-        res.json({ msg: "db reading .. err.  Check with server devs" })
-      })
+    var after = null
+    var count = null
+    console.log(req.query);
+    if(req.query){
+        after = {id: {$gt: parseInt(req.query.after)}}
+        count = parseInt(req.query.count)
+        if(!req.query.count){count = ""}
+        if(!req.query.after){after = {}}
+        
+        pokemonModel.find(after).limit(count)
+            .then(docs => { lengthChecker(res, docs) })
+            .catch(err => {
+                console.error(err)
+                res.json({ msg: "Error reading pokemon query." })
+        })
+    } else {
+        pokemonModel.find({})
+            .then(docs => { lengthChecker(res, docs) })
+            .catch(err => {
+                console.error(err)
+                res.json({ msg: "Error returning all pokemon" })
+        })
+    }
   })
+
+app.get('/api/v1/pokemon/:id', (req, res) => {
+    if(!containsAnyLetters(req.params.id)){
+        pokemonModel.find({id: parseInt(req.params.id)})
+        .then(doc => {
+            lengthChecker(res, doc)
+        }).catch(err => {
+            console.error(err)
+            res.json({ msg: "Error returning singular pokemon" })
+        })
+    } else { res.json({ msg: "Invalid Entry" }) }
+    
+})
+
+app.get('/api/v1/pokemonImage/:id', (req, res) => {
+    var pokeId = req.params.id;
+    if(!containsAnyLetters(pokeId)){
+        pokemonModel.find({id: parseInt(pokeId)})
+        .then(doc => {
+            if(doc.length > 0){
+                if((pokeId).length==1){
+                    pokeId = "00" + pokeId
+                } else if((pokeId).length==2){
+                    pokeId = "0" + pokeId
+                }
+                res.json({url: `https://github.com/fanzeyi/pokemon.json/blob/master/thumbnails/${pokeId}.png`, name: doc[0].name.english})
+            } else {
+                console.log("No Pokemons found")
+                res.json({ msg: "No Pokemons found" })
+            }
+        }).catch(err => {
+            console.error(err)
+            res.json({ msg: "Error returning singular pokemon" })
+        })
+    } else { res.json({ msg: "Invalid Entry" }) }
+}) 
+
+app.use(express.json())
+app.post('/api/v1/pokemon', (req, res) => {
+    // - create a new unicorn
+    pokemonModel.create(req.body, function (err) {
+        if (err) {
+            // console.log(err)
+            res.json({msg: "Duplicate key or invalid format, please try again."})
+        } else {
+            res.json({msg: "Successfully Saved!", body: req.body})
+        }
+    });
+})  
+
+app.delete('/api/v1/pokemon/:id', (req, res) => {
+    // - delete a unicorn
+    var pokeId = req.params.id
+    if(!containsAnyLetters(pokeId)){
+        pokemonModel.deleteOne({ id: parseInt(pokeId) }, function (err, result) {
+            if (err) {
+                res.json({msg: "Pokemon not found. Delete failed."})
+            } else {
+                if(result.deletedCount == 0){
+                    res.json({msg: "Pokemon not found, please check its id!"})
+                } else {
+                    res.json({msg: "Deleted successfully!"})
+                }
+            }
+        });
+    } else { 
+        res.json({ msg: "Invalid Entry" }) 
+    }
+})
+
+// app.put('/api/v1/pokemon/:id')   
+// app.patch('/api/v1/pokemon/:id')
 
 var possibleTypes = []
 const { Schema } = mongoose;
 const pokemonSchema = new Schema({
-    "id": Number,
+    "id": {
+        type: Object,
+        unique: true
+    },
     "name": {
         "english": String,
         "japanese": String,
