@@ -17,9 +17,9 @@ function lengthChecker(res, docs){
     }
 }
 
-app.listen(port, async () => {
+app.listen(process.env.PORT, async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/test')
+        await mongoose.connect('mongodb+srv://test_a1:1122@mydatabase.cq9hxg1.mongodb.net/myDatabase?retryWrites=true&w=majority')
         mongoose.connection.db.dropDatabase();
     } catch(eror) {
         console.log('db error');
