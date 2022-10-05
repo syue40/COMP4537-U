@@ -8,3 +8,8 @@
 - notice that with the mongo extension and VsCode you can enter queries or read them straight from the client
 
 ## Lab 3:
+- In this lab we test basic routes for GET, PUT, POST, PATCH, and DEL to play with a unicorn NoSQL database
+- We also setup Heroku hosting for our application
+
+## Lab 4:
+- This lab was similar to Lab 3, but we used Schemas and models to create/find/update unicorns in the app

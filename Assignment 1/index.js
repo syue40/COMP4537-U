@@ -5,7 +5,7 @@ const app = express()
 const port = 5000
 
 function containsAnyLetters(str) {
-    return /[a-zA-Z]/.test(str);
+    return /[a-zA-Z]/.test(str) ;
 }
 
 function lengthChecker(res, docs){
@@ -54,8 +54,6 @@ app.listen(process.env.PORT, async () => {
     })
     
 })
-
-
 
 app.get('/api/v1/pokemons', function(req, res) {
     var after = null
