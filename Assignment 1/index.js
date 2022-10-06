@@ -30,7 +30,7 @@ app.listen(process.env.PORT, async () => {
     } catch(err) {
         console.log('db error');
     }
-    
+
     console.log(`Example app listening on port ${port}`)
 
     await https.get("https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/types.json", async (res) => {
@@ -40,7 +40,6 @@ app.listen(process.env.PORT, async () => {
         });
         res.on("end", function(){
             possibleTypes = JSON.parse(chunks);
-            // console.log(possibleTypes)
         })
     })
 
@@ -59,7 +58,6 @@ app.listen(process.env.PORT, async () => {
                 delete pokemon.base["Sp. Defense"];
                 return pokemon;
             });
-            // console.log(arr)
             pokemonModel.insertMany(arr).then(
                 console.log("Successfully populated database!")
             ).catch(function(error){
@@ -139,29 +137,32 @@ app.get('/api/v1/pokemonImage/:id', (req, res) => {
 app.use(express.json())
 app.post('/api/v1/pokemon', (req, res) => {
     // - creates a new Pokemon
-    try {
-        pokemonModel.findOne({id: parseInt(req.body.id)}).then(doc => {
-            if(doc == null){
-                pokemonModel.create(req.body, function (err) {
-                    if (err) {
-                        /* For some reason this error will be thrown when trying to create a duplicate Pokemon locally, but is not thrown on mongo Atlas */
-                        res.json({errMsg: "Submission invalid, please try again."})
-                    } else {
-                        res.json({msg: "Added Successfully", body: req.body})
-                    }
-                });
-            } else {
-                res.json({errMsg: "Duplicate key found, error creating Pokemon."})
-            }
-        })
-    } catch (err) {
-        res.json({errMsg: "Error creating pokemon"})
+    var name = req.body.name.english;
+    if(name.length > 20){
+        res.json({errMsg: "String Name length exceeds maximum characters."})
+    } else {
+        try {
+            pokemonModel.findOne({id: parseInt(req.body.id)}).then(doc => {
+                if(doc == null || !doc){
+                    pokemonModel.create(req.body, function (err) {
+                        if (err) {
+                            res.json({errMsg: "Submission invalid, please try again."})
+                        } else {
+                            res.json({msg: "Added Successfully", body: req.body})
+                        }
+                    });
+                } else {
+                    res.json({errMsg: "Duplicate key found, error creating Pokemon."})
+                }
+            })
+        } catch (err) {
+            res.json({errMsg: "Error creating pokemon"})
+        }
     }
-    
 })  
 
 app.delete('/api/v1/pokemon/:id', (req, res) => {
-    // - delete a unicorn
+    // - delete a Pokemon
     var pokeId = req.params.id
     if(!containsAnyLetters(pokeId)){
         pokemonModel.deleteOne({ id: parseInt(pokeId) }, function (err, result) {
