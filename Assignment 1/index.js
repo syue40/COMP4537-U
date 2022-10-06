@@ -49,7 +49,15 @@ app.listen(process.env.PORT, async () => {
             chunks = chunks.concat(chunk);
         });
         res.on("end", function(){
-            const arr = JSON.parse(chunks);
+            var arr = JSON.parse(chunks);
+
+            arr = arr.map((pokemon) => {
+                pokemon.base["Special Attack"] = pokemon.base["Sp. Attack"];
+                pokemon.base["Special Defense"] = pokemon.base["Sp. Defense"];
+                delete pokemon.base["Sp. Attack"];
+                delete pokemon.base["Sp. Defense"];
+                return pokemon;
+            });
             // console.log(arr)
             pokemonModel.insertMany(arr).then(
                 console.log("Successfully populated database!")
@@ -161,7 +169,7 @@ app.delete('/api/v1/pokemon/:id', (req, res) => {
 })
 
 app.patch('/api/v1/pokemon/:id', (req, res) => {
-    // - update a pokemon
+    // - update a pokemon 
     var pokeId = req.params.id
     const { id, ...rest } = req.body;
     if(!containsAnyLetters(pokeId)){
@@ -176,6 +184,7 @@ app.patch('/api/v1/pokemon/:id', (req, res) => {
 })
 
 app.put('/api/v1/pokemon/:id', (req, res) => {
+    // upserts a whole pokemon document
     var pokeId = req.params.id
     const { id, ...rest } = req.body;
     if(!containsAnyLetters(pokeId)){
@@ -193,11 +202,12 @@ app.put('/api/v1/pokemon/:id', (req, res) => {
 }) 
 
 app.get('*', function (req, res) {
+    // handles improper routing
     res.json({msg: "Improper route. Check API docs plz."});
 })
 
 var possibleTypes = []
-const { Schema } = mongoose;
+var { Schema } = mongoose;
 const pokemonSchema = new Schema({
     "id": {
         type: Object,
@@ -217,8 +227,8 @@ const pokemonSchema = new Schema({
         "HP": Number,
         "Attack": Number,
         "Defense": Number,
-        "Sp. Attack": Number,
-        "Sp. Defense": Number,
+        "Special Attack": Number,
+        "Special Defense": Number,
         "Speed": Number
     }
 });
