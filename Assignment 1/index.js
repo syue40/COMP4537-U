@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const https = require('https')
 const app = express()
 const port = 5000
-
-//'mongodb+srv://user1:1122@mydatabase.cq9hxg1.mongodb.net/myDatabase?retryWrites=true&w=majority'
+//'mongodb://localhost:27017/test'
+//'mongodb+srv://testuser:1122@test.kh8lwvb.mongodb.net/?retryWrites=true&w=majority'
 //process.env.PORT
 
 function containsAnyLetters(str) {
@@ -30,6 +30,7 @@ app.listen(process.env.PORT, async () => {
     } catch(err) {
         console.log('db error');
     }
+    
     console.log(`Example app listening on port ${port}`)
 
     await https.get("https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/types.json", async (res) => {
@@ -138,14 +139,25 @@ app.get('/api/v1/pokemonImage/:id', (req, res) => {
 app.use(express.json())
 app.post('/api/v1/pokemon', (req, res) => {
     // - creates a new Pokemon
-    pokemonModel.create(req.body, function (err) {
-        if (err) {
-            /* For some reason this error will be thrown when trying to create a duplicate Pokemon locally, but is not thrown on mongo Atlas */
-            res.json({errMsg: "Duplicate key or invalid format, please try again."})
-        } else {
-            res.json({msg: "Added Successfully", body: req.body})
-        }
-    });
+    try {
+        pokemonModel.findOne({id: parseInt(req.body.id)}).then(doc => {
+            if(doc == null){
+                pokemonModel.create(req.body, function (err) {
+                    if (err) {
+                        /* For some reason this error will be thrown when trying to create a duplicate Pokemon locally, but is not thrown on mongo Atlas */
+                        res.json({errMsg: "Submission invalid, please try again."})
+                    } else {
+                        res.json({msg: "Added Successfully", body: req.body})
+                    }
+                });
+            } else {
+                res.json({errMsg: "Duplicate key found, error creating Pokemon."})
+            }
+        })
+    } catch (err) {
+        res.json({errMsg: "Error creating pokemon"})
+    }
+    
 })  
 
 app.delete('/api/v1/pokemon/:id', (req, res) => {
@@ -210,8 +222,10 @@ var possibleTypes = []
 var { Schema } = mongoose;
 const pokemonSchema = new Schema({
     "id": {
-        type: Object,
-        unique: true
+        type: Number,
+        unique: true,
+        dropDups: true,
+        required: true
     },
     "name": {
         "english": { type: String, max: 20 },
