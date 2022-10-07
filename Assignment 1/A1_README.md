@@ -14,7 +14,8 @@ The application contains the following routes:
 - ```/api/v1/pokemon```
     - this is a ```POST``` request
     - this route will create a new pokemon
-    - ISSUE: while the unique id of a pokemon is validated locally, when the db is hosted on Mongo Atlas it no longer verifies whether an id is unique before adding a pokemon
+    - this route will not create a new pokemon if it's id already exists
+    - this route will not create a new pokemon if it's name exceeds 20 characters (english)
 - ```/api/v1/pokemon/:id```
     - this is a ```GET``` request
     - this route will get a pokemon by their ID (ie. Bulbasaur has ID of 1)
