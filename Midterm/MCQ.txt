@@ -1,0 +1,6 @@
+Question 1: (D) The third heaviest unicorn
+Question 2: (B) 2
+Question 3: (E) all male unicorns which either love apples or weigh less than or equal 500 pounds.
+Question 4: (A) all unicorns that weigh between 600 and 800 inclusive
+Question 5: (F) Matching HTML tags content
+Question 6: (C) (\w+)?.[^jpg][^pni][^gf].*$
