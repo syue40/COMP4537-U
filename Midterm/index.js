@@ -10,6 +10,8 @@ var pokeModel = null
 const app = express()
 const port = 5000
 
+
+
 app.listen(port, async () => {
   // 1 - establish the connection the db
   // 2 - create the schema
@@ -91,6 +93,82 @@ app.listen(port, async () => {
     })
   })
 })
+
+function splitComparisonQuery(str) {
+  var final_query = {};
+  str.forEach(
+    element => {
+      element = element.split(/(([<>!=]=?|=){1,2}|=)/);
+      let element_modified = [...new Set(element)];
+      if(element_modified[1]=='<='){
+        element_modified[1]='$lte'
+      }
+      if(element_modified[1]=='>='){
+        element_modified[1]='$gte'
+      }
+      if(element_modified[1]=='<'){
+        element_modified[1]='$lt'
+      }
+      if(element_modified[1]=='>'){
+        element_modified[1]='$gt'
+      }
+      if(element_modified[1]=='=='){
+        element_modified[1]='$eq'
+      }
+      if(element_modified[1]=='!='){
+        element_modified[1]='$ne'
+      }
+      var query_data = {}
+      query_data[`${element_modified[1]}`] = parseInt(element_modified[2])
+      final_query[String(`base.${element_modified[0]}`)] = query_data
+    }
+  )
+  console.log(final_query);
+  return final_query ;
+}
+
+async function parseQuery(sortSelect, sortParams) {
+    const sortArray = sortParams.split(",");
+      sortArray.forEach(element => {
+        element = element.trim();
+        if (element.charAt(0) === '-') {
+          sortSelect[element.substring(1)] == -1 
+        } else {
+          sortSelect[element] = 1
+        }
+      })
+  }
+  
+app.get ("/pokemonsAdvancedFiltering/", async(req, res) => {
+    let data = req.query;
+    let filterArray = {}
+    let sortSelect = {}; 
+    // console.log(data);
+    if(data.comparisonOperators){
+      var comparisonOperators = data.comparisonOperators.split(',').map(item=> item.trim());
+      comparisonOperators = splitComparisonQuery(comparisonOperators);
+      data = comparisonOperators
+    }
+    if (data.type) {
+        const types = data.type.split(',').map(item => item.trim());
+        data.type = { $in: types };
+    }
+    if (data.sort) {
+        parseQuery(sortSelect, data.sort);
+    };
+    if (data.filteredProperty) {
+        filterArray = data.filteredProperty.split(',').map(item => item.trim());
+    }
+    let resultLimit = 5; 
+    if (data.page & data.hitsPerPage) {
+        resultLimit = data.page * data.hitsPerPage;
+    }
+    console.log(data);
+    const pokemon = await pokeModel.find(data).sort(sortSelect).select(filterArray).limit(resultLimit);
+    // console.log(pokemon)
+    res.json(pokemon);
+})
+
 
 app.get('/api/v1/pokemons', async (req, res) => {
   // console.log(req.query["count"]);
