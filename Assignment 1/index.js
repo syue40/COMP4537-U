@@ -6,6 +6,8 @@ const port = 5000
 //'mongodb://localhost:27017/test'
 //'mongodb+srv://testuser:1122@test.kh8lwvb.mongodb.net/?retryWrites=true&w=majority'
 //process.env.PORT
+//https://gentle-escarpment-90121.herokuapp.com/api/v1/
+//http://localhost:5000/api/v1/
 
 function containsAnyLetters(str) {
     // Check if params have any invalid inputs
@@ -22,10 +24,10 @@ function lengthChecker(res, docs){
     }
 }
 
-app.listen(process.env.PORT, async () => {
+app.listen(port, async () => {
     // Start instance and read data
     try {
-        await mongoose.connect('mongodb+srv://testuser:1122@test.kh8lwvb.mongodb.net/?retryWrites=true&w=majority')
+        await mongoose.connect('mongodb://localhost:27017/test')
         mongoose.connection.db.dropDatabase();
     } catch(err) {
         console.log('db error');
