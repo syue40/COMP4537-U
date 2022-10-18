@@ -56,9 +56,8 @@ app.listen(port, async () => {
           "HP": Number,
           "Attack": Number,
           "Defense": Number,
-
-          'Speed Attack': Number,
-          'Speed Defense': Number,
+          'Special Attack': Number,
+          'Special Defense': Number,
           "Speed": Number
         }
       })
@@ -92,43 +91,6 @@ app.listen(port, async () => {
     })
   })
 })
-
-async function argsParse(sortSelect, sortParams) {
-    const sortArray = sortParams.split(",");
-      sortArray.forEach(element => {
-        element = element.trim();
-        if (element.charAt(0) === '-') {
-          sortSelect[element.substring(1)] == -1 
-        } else {
-          sortSelect[element] = 1
-        }
-      })
-  }
-  
-  
-app.get ("/pokemonsAdvancedFiltering/", async(req, res) => {
-    let data = req.query;
-    console.log(data);
-    if (data.type) {
-        const types = data.type.split(',').map(item => item.trim());
-        data.type = { $in: types };
-    }
-    let sortSelect = {}; 
-    if (data.sort) {
-        argsParse(sortSelect, data.sort);
-    }
-    let filterArray = {};
-    if (data.filteredProperty) {
-        filterArray = data.filteredProperty.split(',').map(item => item.trim());
-    }
-    let resultLimit = 5; 
-    if (data.page & data.hitsPerPage) {
-        resultLimit = data.page * data.hitsPerPage;
-    }
-    const pokemon = await pokeModel.find(data).sort(sortSelect).select(filterArray).limit(resultLimit);
-    res.json(pokemon);
-})
-
 
 app.get('/api/v1/pokemons', async (req, res) => {
   // console.log(req.query["count"]);
