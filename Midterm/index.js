@@ -4,13 +4,9 @@ const express = require("express")
 const url = "https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json"
 
 const { Schema } = mongoose;
-
 var pokeModel = null
-
 const app = express()
 const port = 5000
-
-
 
 app.listen(port, async () => {
   // 1 - establish the connection the db
@@ -26,8 +22,6 @@ app.listen(port, async () => {
 
   var possibleTypes = []
   var pokeSchema = null
-
-
 
   // grab the types
   await https.get("https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/types.json", async (res) => {
@@ -98,6 +92,7 @@ function splitComparisonQuery(str) {
   var final_query = {};
   str.forEach(
     element => {
+      //match regex elements (definitely a better way of doing this)
       element = element.split(/(([<>!=]=?|=){1,2}|=)/);
       let element_modified = [...new Set(element)];
       if(element_modified[1]=='<='){
@@ -119,11 +114,13 @@ function splitComparisonQuery(str) {
         element_modified[1]='$ne'
       }
       var query_data = {}
+      //format query
       query_data[`${element_modified[1]}`] = parseInt(element_modified[2])
       final_query[String(`base.${element_modified[0]}`)] = query_data
     }
   )
-  console.log(final_query);
+  // console.log(final_query);
+  // return query
   return final_query ;
 }
 
@@ -145,6 +142,7 @@ app.get ("/pokemonsAdvancedFiltering/", async(req, res) => {
     let sortSelect = {}; 
     // console.log(data);
     if(data.comparisonOperators){
+      //if comparisonOperators are present parse them then set data equal to the value of the query
       var comparisonOperators = data.comparisonOperators.split(',').map(item=> item.trim());
       comparisonOperators = splitComparisonQuery(comparisonOperators);
       data = comparisonOperators
@@ -165,7 +163,6 @@ app.get ("/pokemonsAdvancedFiltering/", async(req, res) => {
     }
     console.log(data);
     const pokemon = await pokeModel.find(data).sort(sortSelect).select(filterArray).limit(resultLimit);
-    // console.log(pokemon)
     res.json(pokemon);
 })
 
@@ -267,6 +264,11 @@ app.patch('/api/v1/pokemon/:id', async (req, res) => {
     }
   } catch (err) { res.json(handleErr(err)) }
 })
+
+//I wasn't able to reach this portion within the time of the exam
+// app.patch("/pokemonsAdvancedUpdate", ()=>{}){
+
+// }
 
 app.get("*", (req, res) => {
   res.json({
