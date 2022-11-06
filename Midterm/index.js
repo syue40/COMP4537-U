@@ -93,7 +93,7 @@ function splitComparisonQuery(str) {
   str.forEach(
     element => {
       //match regex elements (definitely a better way of doing this)
-      element = element.split(/\w*([<>]|[<>!=]=?)[1-9]\d*/);
+      element = element.split(/(\w+)([<>]|[<>!=]=?)[1-9]\d*/);
       let element_modified = [...new Set(element)];
       if(element_modified[1]=='<='){
         element_modified[1]='$lte'
