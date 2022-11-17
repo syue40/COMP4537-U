@@ -85,6 +85,7 @@ app.post('/login', asyncWrapper(async (req, res) => {
     }
   } else {
     const token = user.loginToken
+    assignedTokens.push(token);
     res.header('auth-token', token)
     res.send(user)
   }
@@ -140,16 +141,9 @@ app.post('/logout', asyncWrapper(async (req, res) => {
   if (index > -1) { // only splice array when item is found
     assignedTokens.splice(index, 1); // 2nd parameter means remove one item only
   }
-  const updatedUser = await userModel.findOneAndUpdate({ loginToken: header }, {loginToken: null})
-    if (updatedUser) {
-      res.json({
-        msg: "Successfully Logged Out"
-      })
-    } else {
-      res.json({ msg: "Not Currently Logged In." })
-      // throw new PokemonBadRequest("Not Currently Logged In.");
-    }
-  
+  res.json({
+    msg: "Successfully Logged Out"
+  })
 }))
 
 app.get('/api/v1/pokemons', asyncWrapper(async (req, res) => {
