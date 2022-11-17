@@ -19,7 +19,8 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:6000/api/v1/pokemon/77
-auth-token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzY0MTNiZjc3NTM1MWM5ODJjN2JmNTciLCJpYXQiOjE2Njc1MDMwNTR9.Roe2sx28XA88BH501loULxvL_hvQ2i3dKeu6Rnr5H8k"
+GET http://localhost:5000/api/v1/pokemon/77
+auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzYzNGExYmI2YTEwODQ5NThmZTg3ZjUiLCJpYXQiOjE2Njc0NTE0MjB9.HgsL3XaZw_DbckwZGvdXRCb3MDcp6TpuiwkdJf_HrMo
 
-###
+
+    
