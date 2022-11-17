@@ -1,0 +1,305 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Assignment2",
+    "dateExported": "2022-11-17T07:42:41.917Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [{
+        "_id": "bd641133-5764-4a9b-99d0-de9011e0f3e7",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Register Non-Admin",
+        "url": "localhost:5000/register",
+        "method": "POST",
+        "sortNum": 10000,
+        "created": "2022-11-17T06:28:09.504Z",
+        "modified": "2022-11-17T06:40:32.286Z",
+        "headers": [],
+        "params": [],
+        "body": {
+            "type": "json",
+            "raw": "{\n  \"username\": \"test\",\n  \"password\": \"test\",\n  \"email\": \"test@test.ca\"\n}",
+            "form": []
+        },
+        "tests": []
+    }, {
+        "_id": "82ae8ebd-1445-48f4-9d62-e78955cdc5ee",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Login Non-Admin",
+        "url": "localhost:5000/login",
+        "method": "POST",
+        "sortNum": 20000,
+        "created": "2022-11-17T06:29:04.152Z",
+        "modified": "2022-11-17T06:41:22.944Z",
+        "headers": [],
+        "params": [],
+        "body": {
+            "type": "json",
+            "raw": "{\n  \"username\": \"test\",\n  \"password\": \"test\"\n}",
+            "form": []
+        },
+        "tests": []
+    }, {
+        "_id": "24736505-bee2-4af2-a18c-2eb2804dd915",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Get Pokemons Non-Admin/Admin",
+        "url": "localhost:5000/api/v1/pokemons?count=2&after=10&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTUzYWNlOGE5ZjAzYzJhNDU1N2QiLCJpYXQiOjE2Njg2NzA3ODN9.2LkZ0E31Vjfz2paAHa60egSPmBdx5DnI67rd9weqmU4",
+        "method": "GET",
+        "sortNum": 30000,
+        "created": "2022-11-17T06:31:03.157Z",
+        "modified": "2022-11-17T07:39:51.742Z",
+        "headers": [],
+        "params": [{
+            "name": "count",
+            "value": "2",
+            "isPath": false
+        }, {
+            "name": "after",
+            "value": "10",
+            "isPath": false
+        }, {
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTUzYWNlOGE5ZjAzYzJhNDU1N2QiLCJpYXQiOjE2Njg2NzA3ODN9.2LkZ0E31Vjfz2paAHa60egSPmBdx5DnI67rd9weqmU4",
+            "isPath": false
+        }],
+        "tests": []
+    }, {
+        "_id": "2e9715dc-94ad-47b8-bdcb-f7d7f8fd913f",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Get Pokemon by ID Non-Admin/Admin",
+        "url": "localhost:5000/api/v1/pokemon/77?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTUzYWNlOGE5ZjAzYzJhNDU1N2QiLCJpYXQiOjE2Njg2NzA3ODN9.2LkZ0E31Vjfz2paAHa60egSPmBdx5DnI67rd9weqmU4",
+        "method": "GET",
+        "sortNum": 40000,
+        "created": "2022-11-17T06:31:45.539Z",
+        "modified": "2022-11-17T07:39:57.810Z",
+        "headers": [],
+        "params": [{
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTUzYWNlOGE5ZjAzYzJhNDU1N2QiLCJpYXQiOjE2Njg2NzA3ODN9.2LkZ0E31Vjfz2paAHa60egSPmBdx5DnI67rd9weqmU4",
+            "isPath": false
+        }],
+        "tests": []
+    }, {
+        "_id": "36200035-851d-4ffd-9c20-2c5512e2b821",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Post New Pokemon Non-Admin",
+        "url": "localhost:5000/api/v1/pokemon?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTUzYWNlOGE5ZjAzYzJhNDU1N2QiLCJpYXQiOjE2Njg2NzA3ODN9.2LkZ0E31Vjfz2paAHa60egSPmBdx5DnI67rd9weqmU4",
+        "method": "POST",
+        "sortNum": 55000,
+        "created": "2022-11-17T06:49:23.928Z",
+        "modified": "2022-11-17T07:40:04.637Z",
+        "headers": [],
+        "params": [{
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTUzYWNlOGE5ZjAzYzJhNDU1N2QiLCJpYXQiOjE2Njg2NzA3ODN9.2LkZ0E31Vjfz2paAHa60egSPmBdx5DnI67rd9weqmU4",
+            "isPath": false
+        }],
+        "body": {
+            "type": "json",
+            "raw": "{\n    \"name\": {\n      \"english\": \"test\",\n      \"japanese\": \"test\",\n      \"chinese\": \"test\",\n      \"french\": \"test\"\n    },\n    \"base\": {\n      \"HP\": 50,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    },\n    \n    \"id\": 1000,\n    \"type\": [\n      \"Bug\"\n    ],\n    \"__v\": 0\n}",
+            "form": []
+        },
+        "tests": []
+    }, {
+        "_id": "846d33b2-7672-4d41-9e73-e6be3dc1f520",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Upsert Pokemon Non-Admin",
+        "url": "localhost:5000/api/v1/pokemon/1000?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTUzYWNlOGE5ZjAzYzJhNDU1N2QiLCJpYXQiOjE2Njg2NzA3ODN9.2LkZ0E31Vjfz2paAHa60egSPmBdx5DnI67rd9weqmU4",
+        "method": "PUT",
+        "sortNum": 62500,
+        "created": "2022-11-17T06:49:28.254Z",
+        "modified": "2022-11-17T07:40:10.619Z",
+        "headers": [],
+        "params": [{
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTUzYWNlOGE5ZjAzYzJhNDU1N2QiLCJpYXQiOjE2Njg2NzA3ODN9.2LkZ0E31Vjfz2paAHa60egSPmBdx5DnI67rd9weqmU4",
+            "isPath": false
+        }],
+        "body": {
+            "type": "json",
+            "raw": "{\n    \"name\": {\n      \"english\": \"Bobby\",\n      \"japanese\": \"Turner\",\n      \"chinese\": \"test\",\n      \"french\": \"test\"\n    },\n    \"base\": {\n      \"HP\": 60,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    },\n    \n    \"id\": 1000,\n    \"type\": [\n      \"Fire\"\n    ],\n    \"__v\": 0\n  }",
+            "form": []
+        },
+        "tests": []
+    }, {
+        "_id": "a19e56dc-9129-41e4-9bd4-ed66691e652e",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Patch Pokemon Non-Admin",
+        "url": "localhost:5000/api/v1/pokemon/1000?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTUzYWNlOGE5ZjAzYzJhNDU1N2QiLCJpYXQiOjE2Njg2NzA3ODN9.2LkZ0E31Vjfz2paAHa60egSPmBdx5DnI67rd9weqmU4",
+        "method": "PATCH",
+        "sortNum": 66250,
+        "created": "2022-11-17T06:51:58.024Z",
+        "modified": "2022-11-17T07:40:14.768Z",
+        "headers": [],
+        "params": [{
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTUzYWNlOGE5ZjAzYzJhNDU1N2QiLCJpYXQiOjE2Njg2NzA3ODN9.2LkZ0E31Vjfz2paAHa60egSPmBdx5DnI67rd9weqmU4",
+            "isPath": false
+        }],
+        "body": {
+            "type": "json",
+            "raw": "{\n    \"base\": {\n      \"HP\": 60,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    }\n}",
+            "form": []
+        },
+        "tests": []
+    }, {
+        "_id": "eecdb254-02e2-49d9-89b9-b5b14a2fb5e7",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Logout Non-Admin",
+        "url": "localhost:5000/logout?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTUzYWNlOGE5ZjAzYzJhNDU1N2QiLCJpYXQiOjE2Njg2NzA3ODN9.2LkZ0E31Vjfz2paAHa60egSPmBdx5DnI67rd9weqmU4",
+        "method": "POST",
+        "sortNum": 68125,
+        "created": "2022-11-17T06:40:50.177Z",
+        "modified": "2022-11-17T07:40:25.144Z",
+        "headers": [],
+        "params": [{
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTUzYWNlOGE5ZjAzYzJhNDU1N2QiLCJpYXQiOjE2Njg2NzA3ODN9.2LkZ0E31Vjfz2paAHa60egSPmBdx5DnI67rd9weqmU4",
+            "isPath": false
+        }],
+        "tests": []
+    }, {
+        "_id": "34e9b058-87d8-45bc-a0a8-7630152d8a32",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Register Admin",
+        "url": "localhost:5000/register",
+        "method": "POST",
+        "sortNum": 68593.8,
+        "created": "2022-11-17T06:28:31.192Z",
+        "modified": "2022-11-17T07:27:40.825Z",
+        "headers": [],
+        "params": [],
+        "body": {
+            "type": "json",
+            "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin\",\n  \"email\": \"admin@test.ca\",\n  \"isAdmin\": true\n}",
+            "form": []
+        },
+        "tests": []
+    }, {
+        "_id": "2c4b8a4a-7e54-4a2c-9504-22b494fe325c",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Login Admin",
+        "url": "localhost:5000/login",
+        "method": "POST",
+        "sortNum": 69062.5,
+        "created": "2022-11-17T06:30:11.010Z",
+        "modified": "2022-11-17T07:27:36.499Z",
+        "headers": [],
+        "params": [],
+        "body": {
+            "type": "json",
+            "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin\"\n}",
+            "form": []
+        },
+        "tests": []
+    }, {
+        "_id": "1c48e834-51cf-4c22-8a2f-79d91466441f",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Post New Pokemon Admin",
+        "url": "localhost:5000/api/v1/pokemon?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTU3NmNlOGE5ZjAzYzJhNDU1ODciLCJpYXQiOjE2Njg2NzA4NDF9.UQYxpQLNsbp2SQyPMU4xKAgOeOjJExdIkObJZO9no2U",
+        "method": "POST",
+        "sortNum": 70000,
+        "created": "2022-11-17T06:33:28.437Z",
+        "modified": "2022-11-17T07:40:49.100Z",
+        "headers": [],
+        "params": [{
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTU3NmNlOGE5ZjAzYzJhNDU1ODciLCJpYXQiOjE2Njg2NzA4NDF9.UQYxpQLNsbp2SQyPMU4xKAgOeOjJExdIkObJZO9no2U",
+            "isPath": false
+        }],
+        "body": {
+            "type": "json",
+            "raw": "{\n    \"name\": {\n      \"english\": \"test\",\n      \"japanese\": \"test\",\n      \"chinese\": \"test\",\n      \"french\": \"test\"\n    },\n    \"base\": {\n      \"HP\": 50,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    },\n    \n    \"id\": 1000,\n    \"type\": [\n      \"Bug\"\n    ],\n    \"__v\": 0\n}",
+            "form": []
+        },
+        "tests": []
+    }, {
+        "_id": "7fd1274e-8888-4f22-9238-8003a8732018",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Check Added Pokemon",
+        "url": "localhost:5000/api/v1/pokemon/1000?token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTU3NmNlOGE5ZjAzYzJhNDU1ODciLCJpYXQiOjE2Njg2NzA4NDF9.UQYxpQLNsbp2SQyPMU4xKAgOeOjJExdIkObJZO9no2U",
+        "method": "GET",
+        "sortNum": 80000,
+        "created": "2022-11-17T06:35:17.400Z",
+        "modified": "2022-11-17T07:40:58.742Z",
+        "headers": [],
+        "params": [{
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTU3NmNlOGE5ZjAzYzJhNDU1ODciLCJpYXQiOjE2Njg2NzA4NDF9.UQYxpQLNsbp2SQyPMU4xKAgOeOjJExdIkObJZO9no2U",
+            "isPath": false
+        }],
+        "tests": []
+    }, {
+        "_id": "c8157524-819e-497e-9dcc-17ba503b1933",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Upsert Pokemon Admin",
+        "url": "localhost:5000/api/v1/pokemon/1000?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTU3NmNlOGE5ZjAzYzJhNDU1ODciLCJpYXQiOjE2Njg2NzA4NDF9.UQYxpQLNsbp2SQyPMU4xKAgOeOjJExdIkObJZO9no2U",
+        "method": "PUT",
+        "sortNum": 85000,
+        "created": "2022-11-17T06:47:22.002Z",
+        "modified": "2022-11-17T07:41:09.086Z",
+        "headers": [],
+        "params": [{
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTU3NmNlOGE5ZjAzYzJhNDU1ODciLCJpYXQiOjE2Njg2NzA4NDF9.UQYxpQLNsbp2SQyPMU4xKAgOeOjJExdIkObJZO9no2U",
+            "isPath": false
+        }],
+        "body": {
+            "type": "json",
+            "raw": "{\n    \"name\": {\n      \"english\": \"Bobby\",\n      \"japanese\": \"Turner\",\n      \"chinese\": \"test\",\n      \"french\": \"test\"\n    },\n    \"base\": {\n      \"HP\": 60,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    },\n    \n    \"id\": 1000,\n    \"type\": [\n      \"Fire\"\n    ],\n    \"__v\": 0\n  }",
+            "form": []
+        },
+        "tests": []
+    }, {
+        "_id": "114be788-0a50-405d-a341-00b25f6f942d",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Patch Pokemon Admin",
+        "url": "localhost:5000/api/v1/pokemon/1000?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTU3NmNlOGE5ZjAzYzJhNDU1ODciLCJpYXQiOjE2Njg2NzA4NDF9.UQYxpQLNsbp2SQyPMU4xKAgOeOjJExdIkObJZO9no2U",
+        "method": "PATCH",
+        "sortNum": 88750,
+        "created": "2022-11-17T06:51:11.031Z",
+        "modified": "2022-11-17T07:41:14.387Z",
+        "headers": [],
+        "params": [{
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTU3NmNlOGE5ZjAzYzJhNDU1ODciLCJpYXQiOjE2Njg2NzA4NDF9.UQYxpQLNsbp2SQyPMU4xKAgOeOjJExdIkObJZO9no2U",
+            "isPath": false
+        }],
+        "body": {
+            "type": "json",
+            "raw": "{\n    \"base\": {\n      \"HP\": 60,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    }\n}",
+            "form": []
+        },
+        "tests": []
+    }, {
+        "_id": "7e764f61-343b-4f9f-acf9-a849b464922f",
+        "colId": "58a4c0f9-3911-443f-8d59-cc70b3ab3eaf",
+        "containerId": "",
+        "name": "Logout Admin",
+        "url": "localhost:5000/logout?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTU3NmNlOGE5ZjAzYzJhNDU1ODciLCJpYXQiOjE2Njg2NzA4NDF9.UQYxpQLNsbp2SQyPMU4xKAgOeOjJExdIkObJZO9no2U",
+        "method": "POST",
+        "sortNum": 100000,
+        "created": "2022-11-17T06:50:38.269Z",
+        "modified": "2022-11-17T07:41:20.370Z",
+        "headers": [],
+        "params": [{
+            "name": "token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzc1ZTU3NmNlOGE5ZjAzYzJhNDU1ODciLCJpYXQiOjE2Njg2NzA4NDF9.UQYxpQLNsbp2SQyPMU4xKAgOeOjJExdIkObJZO9no2U",
+            "isPath": false
+        }],
+        "tests": []
+    }]
+}
