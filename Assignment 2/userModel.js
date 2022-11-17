@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { boolean } = require('webidl-conversions')
 
 const schema = new mongoose.Schema({
   loginToken: {
@@ -6,6 +7,11 @@ const schema = new mongoose.Schema({
     required: false,
     unique: true,
     trim: true,
+  },
+  isAdmin: {
+    type: Boolean,
+    required: false,
+    trim: true
   },
   username: {
     type: String,

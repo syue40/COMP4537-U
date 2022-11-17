@@ -45,9 +45,14 @@ app.use(express.json())
 const bcrypt = require("bcrypt")
 app.post('/register', asyncWrapper(async (req, res) => {
   const { username, password, email } = req.body
+  var isUserAdmin = false;
+  if(req.body.isAdmin && req.body.isAdmin == true){
+    isUserAdmin = true;
+  }
+
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(password, salt)
-  const userWithHashedPassword = { ...req.body, password: hashedPassword }
+  const userWithHashedPassword = { ...req.body, password: hashedPassword, isAdmin: isUserAdmin }
 
   const user = await userModel.create(userWithHashedPassword)
   res.send(user)
@@ -104,6 +109,30 @@ const auth = (req, res, next) => {
   }
 }
 
+const adminAuth = async (req, res, next) => {
+  const token = req.query["token"].trim()
+  if (!token) {
+    throw new PokemonBadRequest("Admin access denied.")
+  }
+  if(!assignedTokens.includes(token)){
+    throw new PokemonBadRequest("You are not logged in.")
+  } else {
+    try {
+      const verified = jwt.verify(token, process.env.TOKEN_SECRET) // nothing happens if token is valid
+      const docs = await userModel.find({ "loginToken": token })
+      if (docs.length != 0 && docs.isAdmin == true) {
+        next()
+      }
+      else {
+        res.json("You are not an administrator.")
+      }
+    } catch (err) {
+      throw new PokemonBadRequest("Invalid admin token.")
+    }
+  }
+}
+
+
 app.use(auth) // Boom! All routes below this line are protected
 app.post('/logout', asyncWrapper(async (req, res) => {
   const header = req.query["token"].trim()
@@ -146,6 +175,14 @@ app.get('/api/v1/pokemon/:id', asyncWrapper(async (req, res) => {
   // } catch (err) { res.json(handleErr(err)) }
 }))
 
+app.get("*", (req, res) => {
+  // res.json({
+  //   msg: "Improper route. Check API docs plz."
+  // })
+  throw new PokemonNoSuchRouteError("");
+})
+
+app.use(adminAuth)
 app.post('/api/v1/pokemon/', asyncWrapper(async (req, res) => {
   // try {
   if (!req.body.id) throw new PokemonBadRequestMissingID()
@@ -214,12 +251,4 @@ app.patch('/api/v1/pokemon/:id', asyncWrapper(async (req, res) => {
   }
   // } catch (err) { res.json(handleErr(err)) }
 }))
-
-app.get("*", (req, res) => {
-  // res.json({
-  //   msg: "Improper route. Check API docs plz."
-  // })
-  throw new PokemonNoSuchRouteError("");
-})
-
 app.use(handleErr)
