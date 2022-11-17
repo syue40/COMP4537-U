@@ -25,6 +25,7 @@ const userModel = require("./userModel.js")
 const app = express()
 const port = 5000
 var pokeModel = null;
+const assignedTokens = [];
 
 const start = asyncWrapper(async () => {
   await connectDB();
@@ -64,31 +65,64 @@ app.post('/login', asyncWrapper(async (req, res) => {
     throw new PokemonBadRequest("Password is incorrect")
   }
 
-  // Create and assign a token
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET)
-  res.header('auth-token', token)
+  if(!user.loginToken){
+    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET)
+    assignedTokens.push(token);
+    // const refreshToken = jwt.sign({ username: user.username}, process.env.TOKEN_SECRET);
 
-  res.send(user)
+    const updatedUser = await userModel.findOneAndUpdate({ username: username }, {loginToken: token})
+    if (updatedUser) {
+      res.header('auth-token', token)
+      res.send(user)
+    } else {
+      // res.json({ msg: "Not found", })
+      throw new PokemonBadRequest("Error while assigning your token");
+    }
+  } else {
+    const token = user.loginToken
+    res.header('auth-token', token)
+    res.send(user)
+  }
 }))
 
 const auth = (req, res, next) => {
-  const token = req.header('auth-token')
+  const token = req.query["token"].trim()
+  // const token = req.header('auth-token')
+  
   if (!token) {
     throw new PokemonBadRequest("Access denied")
   }
-  try {
-    const verified = jwt.verify(token, process.env.TOKEN_SECRET) // nothing happens if token is valid
-    next()
-  } catch (err) {
-    throw new PokemonBadRequest("Invalid token")
+  if(!assignedTokens.includes(token)){
+    throw new PokemonBadRequest("You are not logged in.")
+  } else {
+    try {
+      const verified = jwt.verify(token, process.env.TOKEN_SECRET) // nothing happens if token is valid
+      next()
+    } catch (err) {
+      throw new PokemonBadRequest("Invalid token")
+    }
   }
 }
 
-
-
-
-
 app.use(auth) // Boom! All routes below this line are protected
+app.post('/logout', asyncWrapper(async (req, res) => {
+  const header = req.query["token"].trim()
+  const index = assignedTokens.indexOf(header);
+  if (index > -1) { // only splice array when item is found
+    assignedTokens.splice(index, 1); // 2nd parameter means remove one item only
+  }
+  const updatedUser = await userModel.findOneAndUpdate({ loginToken: header }, {loginToken: null})
+    if (updatedUser) {
+      res.json({
+        msg: "Successfully Logged Out"
+      })
+    } else {
+      res.json({ msg: "Not Currently Logged In." })
+      // throw new PokemonBadRequest("Not Currently Logged In.");
+    }
+  
+}))
+
 app.get('/api/v1/pokemons', asyncWrapper(async (req, res) => {
   if (!req.query["count"])
     req.query["count"] = 10

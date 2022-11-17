@@ -1,6 +1,12 @@
 const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema({
+  loginToken: {
+    type: String,
+    required: false,
+    unique: true,
+    trim: true,
+  },
   username: {
     type: String,
     required: true,
