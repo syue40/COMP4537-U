@@ -121,7 +121,8 @@ const adminAuth = async (req, res, next) => {
     try {
       const verified = jwt.verify(token, process.env.TOKEN_SECRET) // nothing happens if token is valid
       const docs = await userModel.find({ "loginToken": token })
-      if (docs.length != 0 && docs.isAdmin == true) {
+      if (docs.length != 0 && docs[0].isAdmin == true) {
+        console.log("Reached")
         next()
       }
       else {
