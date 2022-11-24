@@ -7,14 +7,22 @@ import axios from 'axios'
 
 
 function Main() {
-  const [checkedState, setCheckedState] = useState([]);
+  const [checkedState, setCheckedState] = useState({
+    "types_array": [],
+    "attack_range": [],
+    "health_range": []
+  });
   const types = useRef([])
 
   useEffect(() => {
     async function getTypes() {
       const result = await axios.get('https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/types.json');
       types.current = result.data.map(type => type.english);
-      setCheckedState(new Array(result.data.length).fill(false))
+      setCheckedState(
+        {
+          "types_array": new Array(result.data.length).fill(false)
+        }
+        )
     }
     getTypes();
   }, [])

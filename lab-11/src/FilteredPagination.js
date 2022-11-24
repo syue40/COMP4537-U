@@ -13,10 +13,10 @@ function FilteredPagination({ types, checkedState }) {
       .then(res => res.data)
       .then(data => {
         // filter based on the checkedState
-        console.log(checkedState);
-        data = (data.filter(pokemon => checkedState.every((checked, i) => !checked || pokemon.type.includes(types.current[i]))
+        console.log(checkedState.types_array);
+        data = (data.filter(pokemon => checkedState.types_array.every((checked, i) => !checked || pokemon.type.includes(types.current[i]))
         ))
-        console.log(data);
+        // console.log(data);
         return data
       })
       .then(res => {
