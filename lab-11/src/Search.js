@@ -4,15 +4,12 @@ import Slider from '@mui/material/Slider';
 
 function Search({ types, checkedState, setCheckedState }) {
   var currentTypes = checkedState.types_array;
+  
   const handleClearFilters = () => {
-    setHealthValue([0, 300]);
-    setAttackValue([0, 200]);
+    window.location.reload(false);
   }
 
   const handleButtonClick = () => {
-    console.log(healthValue)
-    console.log(attackValue)
-    console.log(currentTypes)
     setCheckedState({"types_array": currentTypes, "health_range": healthValue, "attack_range": attackValue});
   }
 
@@ -89,7 +86,6 @@ function Search({ types, checkedState, setCheckedState }) {
         </div>
       </div>
       <div class="flex justify-center mt-4">
-          
           <button class="bg-black hover:bg-gray-600 active:bg-gray-500 text-white p-5 m-4" onClick={handleButtonClick}>
             Submit
           </button>
