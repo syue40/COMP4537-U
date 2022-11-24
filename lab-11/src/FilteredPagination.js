@@ -15,7 +15,10 @@ function FilteredPagination({ types, checkedState }) {
         // filter based on the checkedState
         console.log(checkedState.types_array);
         data = (data.filter(pokemon => checkedState.types_array.every((checked, i) => !checked || pokemon.type.includes(types.current[i]))
+        // data = (data.filter(pokemon =>))
         ))
+        if(checkedState.health_range) data = (data.filter(pokemon => pokemon.base.HP >= checkedState.health_range[0] && pokemon.base.HP <= checkedState.health_range[1]))
+        if(checkedState.attack_range) data = (data.filter(pokemon => pokemon.base.Attack >= checkedState.attack_range[0] && pokemon.base.Attack <= checkedState.attack_range[1]))
         // console.log(data);
         return data
       })

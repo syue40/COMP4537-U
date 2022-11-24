@@ -5,8 +5,8 @@ import Slider from '@mui/material/Slider';
 function Search({ types, checkedState, setCheckedState }) {
   var currentTypes = checkedState.types_array;
   const handleClearFilters = () => {
-    setHealthValue([20, 37]);
-    setAttackValue([20, 37]);
+    setHealthValue([0, 300]);
+    setAttackValue([0, 200]);
   }
 
   const handleButtonClick = () => {
@@ -25,8 +25,8 @@ function Search({ types, checkedState, setCheckedState }) {
   }
 
   // const [newCheckedState, setNewCheckedState] = React.useState([])
-  const [healthValue, setHealthValue] = React.useState([20, 37]);
-  const [attackValue, setAttackValue] = React.useState([20, 37]);
+  const [healthValue, setHealthValue] = React.useState([0, 300]);
+  const [attackValue, setAttackValue] = React.useState([0, 200]);
 
   const handleHealthChange = (event, newValue) => {
     setHealthValue(newValue);
@@ -46,7 +46,9 @@ function Search({ types, checkedState, setCheckedState }) {
             <div class="mr-3">{healthValue[0]}</div>
               <Box sx={{ width: 300 }}>
                 <Slider
-                  getAriaLabel={() => 'Temperature range'}
+                  min={0}
+                  max={300}
+                  step={1}
                   value={healthValue}
                   onChange={handleHealthChange}
                   valueLabelDisplay="auto"
@@ -59,7 +61,9 @@ function Search({ types, checkedState, setCheckedState }) {
             <div class="mr-3">{attackValue[0]}</div>
               <Box sx={{ width: 300 }}>
                 <Slider
-                  getAriaLabel={() => 'Temperature range'}
+                min={0}
+                max={200}
+                step={1}
                   value={attackValue}
                   onChange={handleAttackChange}
                   valueLabelDisplay="auto"
