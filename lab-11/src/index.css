@@ -18,11 +18,13 @@ code {
 
 button {
   display: inline-block;
+  padding: 1.5rem;
 }
 
 button.active {
-  background-color: #4CAF50;
+  background-color: #1976d2;
   color: white;
+  padding: 1.5rem;
 }
 
 .pokemon-list {

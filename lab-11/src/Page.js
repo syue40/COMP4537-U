@@ -3,7 +3,7 @@ import Pokemon from './Pokemon'
 function page({ currentPokemons, currentPage }) {
   return (
     <div>
-      <h1 class="flex justify-center mt-5 mb-4">
+      <h1 class="flex justify-center mt-5 mb-10">
         Page Number: {currentPage}
       </h1>
       <div className="pokemon-list">

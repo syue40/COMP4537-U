@@ -15,7 +15,7 @@ function Pagination({ numberOfPages, currentPage, setCurrentPage }) {
 
 
   return (
-    <div>
+    <div class="flex p-4 justify-center mt-10">
       {(currentPage !== 1) && (<button onClick={prevPage}>prev </button>)}
 
       {
